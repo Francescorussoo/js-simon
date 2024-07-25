@@ -67,6 +67,30 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(userNumbers);
         evaluateUserNumbers();
     }
+
+     // Valuta quanti e quali numeri sono stati individuati correttamente
+     function evaluateUserNumbers() {
+        const correctNumbers = userNumbers.filter(num => randomNumbers.includes(num));
+        timerTag.innerHTML = `<p>Numeri indovinati: <strong>${correctNumbers.join(', ')}</strong></p>`;
+
+        if (correctNumbers.length === 5) {
+            alert("Hai vinto!");
+        } else {
+            alert("Hai perso!");
+        }
+
+          // Reset game
+          resetGame();
+        }
     
+        // Resetta il gioco
+        function resetGame() {
+            randomNumbers.length = 0;
+            userNumbers.length = 0;
+            countdown = 30;
+            divToMemorize.textContent = '';
+            timerTag.textContent = '';
+        }
+        
     startButton.addEventListener("click", startGame);
 });
