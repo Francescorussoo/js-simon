@@ -33,4 +33,40 @@ document.addEventListener("DOMContentLoaded", function() {
         divToMemorize.innerHTML = randomNumbers.map(num => `<p style='margin:15px 5px;'><strong>${num}</strong></p>`).join('');
     }
     
+    // Avvia il conto alla rovescia
+    function startCountdown() {
+        memorizingInterval = setInterval(updateCountdown, 1000);
+    }
+
+    // Aggiorna il timer e gestisce la logica del gioco
+    function updateCountdown() {
+        if (countdown > 0) {
+            timerTag.textContent = `Tempo rimanente: ${countdown} secondi`;
+            countdown--;
+        } else {
+            clearInterval(memorizingInterval);
+            hideRandomNumbers();
+            setTimeout(promptUserForNumbers, 5000);
+        }
+    }
+
+    // Nasconde i numeri random dallo schermo
+    function hideRandomNumbers() {
+        divToMemorize.textContent = '';
+        timerTag.textContent = 'Ricorda i numeri...';
+    }
+
+    // Chiede all'utente di inserire i numeri tramite prompt
+    function promptUserForNumbers() {
+        for (let i = 0; i < 5; i++) {
+            const userNum = parseInt(prompt(`Inserisci il numero ${i + 1}:`), 10);
+            if (!isNaN(userNum)) {
+                userNumbers.push(userNum);
+            }
+        }
+        console.log(userNumbers);
+        evaluateUserNumbers();
+    }
+    
+    startButton.addEventListener("click", startGame);
 });
